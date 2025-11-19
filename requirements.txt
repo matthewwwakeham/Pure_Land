@@ -4,5 +4,6 @@ SQLAlchemy
 psycopg2-binary
 Flask-Migrate
 Flask-WTF
+email-validator
 python-dotenv
 flask-limiter

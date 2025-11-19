@@ -1,7 +1,9 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 db = SQLAlchemy()
+migrate = Migrate()
 
 def create_app(config_class=None):
     app = Flask(
@@ -15,6 +17,10 @@ def create_app(config_class=None):
         app.config.from_object(Config)
         
     db.init_app(app)
+    migrate.init_app(app, db)
+    
+    # Import models so Alembic sees them
+    from .models import User, UserProfile, UserActivity, Dialogue
     
     from.routes import main, auth
     app.register_blueprint(main)

@@ -1,0 +1,55 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Tests
+.pytest_cache/
+
+# Distribution / packaging
+.Python/
+build/
+develop-eggs/
+dist/
+eggs/
+*.egg-info/
+
+# Virtual environment
+.venv/
+venv/
+env/
+/bin/
+
+# Dependency management
+pip-log.txt
+pip-delete-this-log.txt
+pip.log
+
+# Operating System
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Jupyter Notebook (if used)
+.ipynb_checkpoints
+
+# Local settings and secrets
+config.py
+instance/
+
+# Environment variables (commonly used for configuration)
+.env
+.flaskenv
+
+# Logs and databases
+*.log
+*.sqlite
+/tmp

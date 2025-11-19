@@ -71,3 +71,17 @@ class UserActivity(db.Model):
     
     def __repr__(self):
         return f"<UserActivity user_id={self.user_id} login_at={self.login_at} ip={self.ip_address}>"
+
+class Dialogue(db.Model):
+    __tablename__ = "dialogue_logs"
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(UUID(as_uuid=True), db.ForeignKey("users.id"), nullable=False)
+    created_at = db.Column(db.DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+    text = db.Column(db.String(500), nullable=False)
+
+    user = db.relationship("User", backref=db.backref("dialogue_logs", lazy=True))
+    
+    def __repr__(self):
+        return f"<Dialogue user_id={self.user_id} text={self.text[:20]}...>"
+    

@@ -16,8 +16,9 @@ def create_app(config_class=None):
         
     db.init_app(app)
     
-    from.routes import main
+    from.routes import main, auth
     app.register_blueprint(main)
+    app.register_blueprint(auth)
     
     @app.route("/helloworld")
     def ping():

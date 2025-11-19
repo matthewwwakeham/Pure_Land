@@ -1,0 +1,10 @@
+{# templates/main/macros.html #}
+{% macro navbar() %}
+<nav>
+    <ul>
+        <li>
+            <a href="{{ url_for('auth.login') }}">Login</a>
+        </li>
+    </ul>
+</nav>
+{% endmacro %}

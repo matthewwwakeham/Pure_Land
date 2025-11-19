@@ -4,4 +4,10 @@ main = Blueprint("main", __name__)
 
 @main.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("main/index.html")
+
+auth = Blueprint("auth", __name__)
+
+@auth.route("/login")
+def login():
+    return render_template("auth/login.html")

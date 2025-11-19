@@ -1,21 +1,22 @@
 import uuid
+import enum
 from datetime import datetime, timezone
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import CheckConstraint
-from sqlalchemy import Enum
+from sqlalchemy import Enum as SQLEnum
 
-class PrestigeLevelEnum(str, Enum):
+class PrestigeLevelEnum(str, enum.Enum):
     HUMAN = "human"
     DEMON = "demon"
 
 class User(db.Model):
     __tablename__ = "users"
     
-    id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     username = db.Column(db.String(15), unique=True, nullable=False)
-    email = db.Column(db.string(120), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
     created_at = db.Column(db.DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
@@ -43,7 +44,7 @@ class UserProfile(db.Model):
     demon_energy = db.Column(db.Integer, default=0, nullable=False)
     
     prestige = db.Column(
-        db.Enum(PrestigeLevelEnum, name="prestige_levels"),
+        SQLEnum(PrestigeLevelEnum, name="prestige_levels"),
         default=PrestigeLevelEnum.HUMAN,
         nullable=False
     )

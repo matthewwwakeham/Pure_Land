@@ -10,7 +10,7 @@ class LoginForm(FlaskForm):
     )
     password = PasswordField(
         "Password",
-        validators=[DataRequired(), Length(min=12)]
+        validators=[DataRequired(), Length(min=12, max=128)]
     )
     remember_me = BooleanField("Remember me")
     submit = SubmitField("Login")
@@ -22,11 +22,11 @@ class SignupForm(FlaskForm):
     ) 
     email = StringField(
         "Email",
-        validators=[DataRequired(), Length(min=120)]
+        validators=[DataRequired(), Length(max=120)]
     )
     password = PasswordField(
         "Password",
-        validators=[DataRequired(), Length(min=12)]
+        validators=[DataRequired(), Length(min=12, max=128)]
     )
     password2 = PasswordField(
         "Confirm Password",
@@ -52,7 +52,7 @@ class ResetPasswordRequestForm(FlaskForm):
 class ResetPasswordForm(FlaskForm):
     password = PasswordField(
         "New Password",
-        validators=[DataRequired(), Length(min=12)]
+        validators=[DataRequired(), Length(min=12, max=128)]
     )
     password2 = PasswordField(
         "Confirm New Password",

@@ -57,3 +57,17 @@ class UserProfile(db.Model):
         CheckConstraint('agility >= 0 AND agility <=120', name='agility_range'),
         CheckConstraint('demon_energy >= 0 AND demon_energy <=120', name='demon_energy_range')
     )
+    
+class UserActivity(db.Model):
+    __tablename__ = "user_activities"
+    
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(UUID(as_uuid=True), db.ForeignKey("users.id"), nullable=False)
+    login_at = db.Column(db.DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+    ip_address = db.Column(db.String(45))
+    action = db.Column(db.String(100), nullable=True)
+    
+    user = db.relationship("User", backref=db.backref("activities", lazy=True))
+    
+    def __repr__(self):
+        return f"<UserActivity user_id={self.user_id} login_at={self.login_at} ip={self.ip_address}>"

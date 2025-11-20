@@ -23,7 +23,7 @@
 
     {% import "main/macros.html" as ui %}
 
-    {{ ui.navbar() }}
+    {{ ui.navbar(current_user) }}
 
     <main>
         {% block content %}{% endblock %}

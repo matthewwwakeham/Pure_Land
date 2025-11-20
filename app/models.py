@@ -6,12 +6,13 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import CheckConstraint
 from sqlalchemy import Enum as SQLEnum
+from flask_login import UserMixin
 
 class PrestigeLevelEnum(str, enum.Enum):
     HUMAN = "human"
     DEMON = "demon"
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = "users"
     
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
@@ -32,6 +33,9 @@ class User(db.Model):
     
     def __repr__(self):
         return f"<User {self.username}>"
+    
+    def get_id(self):
+        return str(self.id)
 
 class UserProfile(db.Model):
     __tablename__ = "user_profiles"
